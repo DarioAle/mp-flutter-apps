@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
 import "source.dart";
 
@@ -14,13 +15,13 @@ class Articles extends Equatable {
 
 	const Articles({
 		this.source,
-		this.author,
-		this.title,
-		this.description,
+		@required this.author,
+		@required this.title,
+		@required this.description,
 		this.url,
-		this.urlToImage,
-		this.publishedAt,
-		this.content,
+		@required this.urlToImage,
+		@required this.publishedAt,
+	  this.content,
 	});
 
 	@override

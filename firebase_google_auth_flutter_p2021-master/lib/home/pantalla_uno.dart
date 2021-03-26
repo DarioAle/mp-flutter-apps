@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_login/models/articles.dart';
 
+
 import '../news-repository.dart';
 
 class PantallaUno extends StatelessWidget {
@@ -8,28 +9,34 @@ class PantallaUno extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   
+    
     return Container(
-        child: FutureBuilder(
-            future: NewRepository().getAvailableNoticias(""),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text("Algo salio mal", style: TextStyle(fontSize: 50)),
+      child: FutureBuilder(
+        future: NewRepository().getAvailableNoticias(""),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text("Algo salio mal", style: TextStyle(fontSize: 50)),
+            );
+          }
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                return ItemNoticia(
+                  noticia: snapshot.data[index],
                 );
-              }
-              if (snapshot.hasData) {
-                return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return ItemNoticia(noticia: snapshot.data[index],);
-                    });
-              } else {
-                return Center(
-                  child:
-                      Text("Cargando noticias", style: TextStyle(fontSize: 50)),
-                );
-              }
-            }));
+              },
+            );
+          } else {
+            return Center(
+              child: Text("Cargando noticias", style: TextStyle(fontSize: 50)),
+            );
+          }
+        },
+      ),
+    );
   }
 }
 
@@ -106,3 +113,4 @@ class ItemNoticia extends StatelessWidget {
     );
   }
 }
+
